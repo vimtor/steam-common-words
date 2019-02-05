@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Steam - Common Words</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+</head>
+<body>
+<header id="results-header">
+    <h1 id="results-h1">Results for <span>{{ name }}</span></h1>
+    <div id="return-options">
+    <a id="return-h1" href="{{ url_for('index') }}">Back</a>
+    <p id="return-p"> | </p>
+    <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='icons/back_icon.png') }}" alt="Steam" id="return-icon">
+    </a>
+</div>
+</header>
+
+<ul>
+    {% for word in words %}
+        <li>{{ word }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

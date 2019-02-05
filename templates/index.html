@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Steam Common Words</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+</head>
+<body>
+<header id="main-header">
+    <h1 id="main-h1">Steam. <span>Common Words</span></h1>
+    <form action="" id="search-bar" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.name(class_='search-input', placeholder='Search your favourite game...', autocomplete='off') }}
+    </form>
+    <div id="links">
+        <a class="link" href="">GitHub</a>
+        -
+        <a class="link" href="">Donate</a>
+        -
+        <a class="link" href="">Contact</a>
+    </div>
+</header>
+</body>
+</html>

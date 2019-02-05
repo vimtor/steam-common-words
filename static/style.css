@@ -1,0 +1,162 @@
+/* Global */
+:root {
+    --black: #444343;
+    --gray: #9e9d9d;
+    --background: #f7f7f7;
+}
+
+/* Fonts */
+@font-face {
+   font-family: 'Roboto';
+   src: url('fonts/Roboto-Thin.ttf');
+   font-weight: 100;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'Roboto';
+   src: url('fonts/Roboto-Light.ttf');
+   font-weight: 300;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'Roboto';
+   src: url('fonts/Roboto-Regular.ttf');
+   font-weight: 400;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'Roboto';
+   src: url('fonts/Roboto-Medium.ttf');
+   font-weight: 500;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'Roboto';
+   src: url('fonts/Roboto-Bold.ttf');
+   font-weight: 700;
+   font-style: normal;
+}
+
+
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+body, html {
+    overflow-y: hidden;
+}
+
+p {
+    color: var(--gray);
+}
+
+#main-header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--background);
+    background-image: url('images/steam_logo.png');
+    background-repeat: no-repeat;
+    background-position: top 0px left 200%;
+}
+
+#main-h1 {
+    font-weight: 500;
+    font-size: 4.5em;
+    color: var(--black);
+    margin-top: 0px;
+    margin-bottom: 1%;
+}
+
+#main-h1 span {
+    font-weight: 100;
+}
+
+#results-h1 {
+    font-weight: 100;
+    font-size: 3em;
+    color: var(--black);
+}
+
+#results-h1 span {
+    font-weight: 500;
+    color: var(--black);
+}
+
+#return-h1 {
+    font-weight: 100;
+    font-size: 3em;
+    color: var(--black);
+}
+
+#return-p {
+    font-weight: 100;
+    font-size: 3em;
+    color: var(--black);
+}
+
+#links {
+    margin-top: 1%;
+    color: var(--gray);
+}
+
+.link {
+    text-decoration: None;
+    position: relative;
+    color: var(--gray);
+}
+
+.link:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 1%;
+    left: 0;
+    background-color: var(--gray);
+    visibility: hidden;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.link:hover:before {
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+#search-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    border: 2px solid var(--gray);
+    background-color: white;
+    width: 30%;
+    height: 8%;
+}
+
+.search-input {
+    width: 90%;
+    font-size: 1.5em;
+    font-weight: 300;
+    text-align: center;
+    color: var(--gray);
+    border: none transparent;
+}
+
+.search-input:focus {
+    outline: none;
+    color: var(--black);
+}
