@@ -1,0 +1,7 @@
+{% extends 'index.html' %}
+{% block form %}
+    <form action="" id="search-bar" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.name(class_='search-input', placeholder='Search your favourite game...', autocomplete='off') }}
+    </form>
+{% endblock %}

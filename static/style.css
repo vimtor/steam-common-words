@@ -3,6 +3,7 @@
     --black: #444343;
     --gray: #9e9d9d;
     --background: #f7f7f7;
+    --red: #ff6960;
 }
 
 /* Fonts */
@@ -147,6 +148,18 @@ p {
     height: 8%;
 }
 
+#search-bar-error {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    border: 2px solid var(--red);
+    background-color: white;
+    width: 30%;
+    height: 8%;
+}
+
 .search-input {
     width: 90%;
     font-size: 1.5em;
@@ -159,4 +172,21 @@ p {
 .search-input:focus {
     outline: none;
     color: var(--black);
+}
+
+.search-input-error {
+    width: 90%;
+    font-size: 1.5em;
+    font-weight: 300;
+    text-align: center;
+    color: var(--red);
+    border: none transparent;
+}
+
+.search-input-error::placeholder {
+    color: var(--red);
+}
+
+.search-input-error:focus {
+    outline: none;
 }

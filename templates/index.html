@@ -8,10 +8,7 @@
 <body>
 <header id="main-header">
     <h1 id="main-h1">Steam. <span>Common Words</span></h1>
-    <form action="" id="search-bar" method="post">
-        {{ form.hidden_tag() }}
-        {{ form.name(class_='search-input', placeholder='Search your favourite game...', autocomplete='off') }}
-    </form>
+    {% block form %} {% endblock %}
     <div id="links">
         <a class="link" href="">GitHub</a>
         -
