@@ -35,13 +35,11 @@ class Steam:
             pickle.dump(downloaded_games, file)
 
     def get_reviews(self, name, number=1):
-        """
-        Returns 100 times number of reviews for the specified appid.
-        """
+        """ Returns 100 times number of reviews for the specified appid. """
         reviews = []
 
         # TODO: get_name method won't be necessary when the name passed is correct.
-        appid = self.get_appid(self.get_name(name))
+        appid = self.get_appid(name)
 
         for i in range(number):
             # Get the reviews.
@@ -76,7 +74,7 @@ class Steam:
         # TODO: Try and catch won't be necessary because the name parameter will be validated.
         try:
             # Return the first match.
-            return next(game['appid'] for game in self.games if game['name'] == name)
+            return next(game['appid'] for game in self.games if game['name'].lower() == name.lower())
         except StopIteration:
             # If not found, return None.
             return None
@@ -87,12 +85,8 @@ class Word:
     Container for popular words.
 
     Attributes
-    ----------
-    text : str
-        Written word (in lowercase).
-
-    popularity : int
-        Score of the word among the other ones analized.
+        text (str): Written word (in lowercase).
+        popularity (int): Score of the word among the other ones analyzed.
 
     """
 
@@ -114,26 +108,21 @@ class Analyzer:
         Returns the most common words found.
 
         Parameters
-        ----------
-        reviews : str
-            All the concatenated reviews in one single string.
+            reviews (str): All the concatenated reviews in one single string.
+            number (int):  How many words the function should return.
+            ranges (int): How many different types of popularity a word could be.
 
-        number : int
-            How many words the function should return.
-
-        ranges : int
-            How many different types of popularity a word could be.
 
         Returns
-        -------
-        list(Word)
-            List of Word objects which have the text and the popularity as class attributes.
+            list(Word): List of Word objects which have the text and the popularity as class attributes.
 
         """
-        # TODO: Check if doing both list comprehensions at the same time is faster.
+
+        # Tokenize and remove punctuation.
         tokens = re.split(r'\W+', reviews)
         tokens = [token.lower() for token in tokens]
 
+        # Remove stopwords.
         stopwords = json.load(open('static/data/stopwords.json', 'r'))
         tokens = [token for token in tokens if token not in stopwords]
 

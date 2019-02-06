@@ -21,6 +21,6 @@ def create_form():
 def check_game(name):
     for game in steam.game_names:
         if name.lower() == game.lower():
-            return True
+            return game
 
-    return False
+    return None
