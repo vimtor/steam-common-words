@@ -1,5 +1,5 @@
-from flask import Flask, render_template, redirect, url_for, session, flash
-from utils import get_words, create_form, check_game, download_games
+from flask import Flask, render_template, redirect, url_for
+from utils import get_words, create_form, check_game
 
 app = Flask(__name__)
 
@@ -23,7 +23,7 @@ def index():
 
 @app.route('/game/<name>', methods=['POST', 'GET'])
 def words(name):
-    return render_template('words.html', name=name, words=get_words(name, number=10))
+    return render_template('words.html', name=name, words=get_words(name, number=10, ranges=3))
 
 
 @app.route('/<pagename>')

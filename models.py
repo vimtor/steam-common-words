@@ -1,7 +1,7 @@
 import json
 import pickle
 import re
-import nltk
+from collections import Counter
 import requests
 
 from flask_wtf import FlaskForm
@@ -82,26 +82,73 @@ class Steam:
             return None
 
 
+class Word:
+    """
+    Container for popular words.
+
+    Attributes
+    ----------
+    text : str
+        Written word (in lowercase).
+
+    popularity : int
+        Score of the word among the other ones analized.
+
+    """
+
+    def __init__(self, text, popularity):
+        self.text = text
+        self.popularity = popularity
+
+    def __str__(self):
+        return f"({self.text}, {self.popularity})"
+
+    def __repr__(self):
+        return self.__str__()
+
+
 class Analyzer:
 
-    def get_words(self, reviews, number=5):
-        """ Returns the most common words found in 'reviews' until the 'number' paramater. """
-        tokens = self.get_tokens(reviews)
-        text = nltk.Text(tokens)
+    def get_words(self, reviews, number, ranges=3):
+        """
+        Returns the most common words found.
 
-        fdist = nltk.FreqDist(text)
-        return [word[0] for word in fdist.most_common()][:number]
+        Parameters
+        ----------
+        reviews : str
+            All the concatenated reviews in one single string.
 
-    def get_tokens(self, reviews):
-        """ Returns tokenized and cleaned reviews. """
-        # Remove punctuation and special characters.
-        cleaned_reviews = re.sub(r'[^\w\s]', '', reviews).lower()
+        number : int
+            How many words the function should return.
 
-        # Tokenize reviews into a list of words.
-        word_list = nltk.tokenize.word_tokenize(cleaned_reviews)
+        ranges : int
+            How many different types of popularity a word could be.
+
+        Returns
+        -------
+        list(Word)
+            List of Word objects which have the text and the popularity as class attributes.
+
+        """
+        # TODO: Check if doing both list comprehensions at the same time is faster.
+        tokens = re.split(r'\W+', reviews)
+        tokens = [token.lower() for token in tokens]
+
         stopwords = json.load(open('static/data/stopwords.json', 'r'))
+        tokens = [token for token in tokens if token not in stopwords]
 
-        return [word for word in word_list if word not in stopwords]
+        words = Counter(tokens).most_common(number)
+        _, max_score = words[0]
+        step = max_score / ranges
+
+        common_words = []
+        for word, score in words:
+            for i in reversed(range(1, ranges)):
+                if score > step * i:
+                    common_words.append(Word(word, i))
+                    break
+
+        return common_words
 
 
 class SearchForm(FlaskForm):

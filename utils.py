@@ -4,9 +4,9 @@ steam = Steam()
 analyzer = Analyzer()
 
 
-def get_words(name, number=5):
+def get_words(name, number, ranges):
     reviews = steam.get_reviews(name)
-    return analyzer.get_words(reviews, number=number)
+    return analyzer.get_words(reviews, number, ranges)
 
 
 def download_games():
@@ -20,7 +20,7 @@ def create_form():
 
 def check_game(name):
     for game in steam.game_names:
-        if name == game:
+        if name.lower() == game.lower():
             return True
 
     return False
