@@ -3,7 +3,9 @@
     --black: #444343;
     --gray: #9e9d9d;
     --background: #f7f7f7;
-    --red: #ff6960;
+    --red: #ff765b;
+
+    --return-margin: 0 15px;
 }
 
 /* Fonts */
@@ -69,6 +71,41 @@ p {
     background-position: top 0px left 200%;
 }
 
+#results-header {
+    margin: 3% 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#return-options {
+    display: flex;
+    float: right;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+#return-back {
+    font-weight: 100;
+    font-size: 3em;
+    color: var(--black);
+    text-decoration: none;
+    position: relative;
+    margin: var(--return-margin);
+}
+
+#return-p {
+    font-weight: 100;
+    font-size: 3em;
+    color: var(--black);
+    margin: var(--return-margin);
+}
+
+#return-icon {
+    margin: var(--return-margin);
+}
+
 #main-h1 {
     font-weight: 500;
     font-size: 4.5em;
@@ -82,6 +119,7 @@ p {
 }
 
 #results-h1 {
+    margin: 0px;
     font-weight: 100;
     font-size: 3em;
     color: var(--black);
@@ -89,18 +127,6 @@ p {
 
 #results-h1 span {
     font-weight: 500;
-    color: var(--black);
-}
-
-#return-h1 {
-    font-weight: 100;
-    font-size: 3em;
-    color: var(--black);
-}
-
-#return-p {
-    font-weight: 100;
-    font-size: 3em;
     color: var(--black);
 }
 
@@ -115,7 +141,7 @@ p {
     color: var(--gray);
 }
 
-.link:before {
+.link:before, #return-back:before {
     content: '';
     position: absolute;
     width: 100%;
@@ -130,7 +156,22 @@ p {
     transition: all 0.3s ease-in-out 0s;
 }
 
-.link:hover:before {
+.link:before, #return-back:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 1%;
+    left: 0;
+    background-color: var(--gray);
+    visibility: hidden;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.link:hover:before, #return-back:hover:before {
     visibility: visible;
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
@@ -189,4 +230,18 @@ p {
 
 .search-input-error:focus {
     outline: none;
+}
+
+#words {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 8.5%;
+}
+
+.word {
+    font-size: 6em;
+    margin: 1% 1%;
+    color: var(--black);
+    opacity: 0;
 }
