@@ -29,7 +29,7 @@ def words(name):
         if name is None:
             return redirect(url_for('index'))
 
-    return render_template('words.html', name=name, words=get_words(name, number=10, ranges=3))
+    return render_template('words.html', name=name, words=get_words(name, number=18, ranges=3))
 
 
 @app.errorhandler(500)

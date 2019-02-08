@@ -3,6 +3,7 @@ import pickle
 import re
 from collections import Counter
 import requests
+import random
 
 from flask_wtf import FlaskForm
 from wtforms import StringField
@@ -126,16 +127,22 @@ class Analyzer:
         stopwords = json.load(open('static/data/stopwords.json', 'r'))
         tokens = [token for token in tokens if token not in stopwords]
 
+        # Get the most common words and the intervals of popularity.
         words = Counter(tokens).most_common(number)
         _, max_score = words[0]
         step = max_score / ranges
 
+        # Shuffle words to make the displaying less boring.
+        random.shuffle(words)
+
         common_words = []
         for word, score in words:
-            for i in reversed(range(1, ranges)):
-                if score > step * i:
-                    common_words.append(Word(word, i))
-                    break
+            if score > step * 2:
+                common_words.append(Word(word, 2))
+            elif score > step * 1.35:
+                common_words.append(Word(word, 1))
+            else:
+                common_words.append(Word(word, 0))
 
         return common_words
 

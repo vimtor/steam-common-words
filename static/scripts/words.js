@@ -1,5 +1,5 @@
-const FADE_DURATIONS = [1000, 3000, 5000];
-const OPACITIES = [0.2, 0.5, 1];
+const FADE_DURATIONS = [3000, 5000, 7000];
+const OPACITIES = [0.2, 0.6, 1];
 
 $(document).ready(function () {
     showWords();
