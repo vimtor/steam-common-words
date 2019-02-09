@@ -11,17 +11,14 @@ from wtforms.validators import DataRequired
 
 
 class Steam:
-    games = []
-    game_names = []
-
-    url = 'http://store.steampowered.com/appreviews/{}?json=1'
-    parameters = {'filter': 'all', 'pucharse_type': 'steam',
-                  'num_per_page': 100, 'start_offset': 0}
-
-    all_games_url = 'http://api.steampowered.com/ISteamApps/GetAppList/v0002/'
-    games_directory = 'static/data/gameslist.data'
 
     def __init__(self):
+        self.url = 'http://store.steampowered.com/appreviews/{}?json=1'
+        self.all_games_url = 'http://api.steampowered.com/ISteamApps/GetAppList/v0002/'
+
+        self.parameters = {'filter': 'all', 'pucharse_type': 'steam', 'num_per_page': 100, 'start_offset': 0}
+        self.games_directory = 'static/data/gameslist.data'
+
         # Initialize the games list with the file content.
         with open(self.games_directory, 'rb') as file:
             self.games = pickle.load(file)
@@ -36,11 +33,20 @@ class Steam:
             pickle.dump(downloaded_games, file)
 
     def get_reviews(self, name, number=1):
-        """ Returns 100 times number of reviews for the specified appid. """
+        """
+        Returns the reviews of the specified game.
+
+        Attributes
+            name (str): Name of the game to get reviews from.
+            number (int): Number of reviews to request. (Each request is 100 times the number requested).
+
+        Returns
+            str: A whole string with all the reviews concatenated.
+
+        """
         reviews = []
 
-        # TODO: get_name method won't be necessary when the name passed is correct.
-        appid = self.get_appid(name)
+        appid = next(game['appid'] for game in self.games if game['name'].lower() == name.lower())
 
         for i in range(number):
             # Get the reviews.
@@ -60,25 +66,6 @@ class Steam:
         self.parameters['start_offset'] = 0
 
         return str(reviews)
-
-    def get_name(self, name):
-        """
-        Returns a the first match of the game whose name matches the name parameter.
-        """
-        # For optimization in the list comprehension.
-        name = name.lower()
-
-        return next(game for game in self.game_names if name in game.lower())
-
-    def get_appid(self, name):
-        """ Returns the appid of the game whose names is equal to the name parameter. """
-        # TODO: Try and catch won't be necessary because the name parameter will be validated.
-        try:
-            # Return the first match.
-            return next(game['appid'] for game in self.games if game['name'].lower() == name.lower())
-        except StopIteration:
-            # If not found, return None.
-            return None
 
 
 class Word:
