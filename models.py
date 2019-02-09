@@ -1,9 +1,9 @@
 import json
 import pickle
 import re
-from collections import Counter
 import requests
 import random
+from collections import Counter
 
 from flask_wtf import FlaskForm
 from wtforms import StringField
@@ -14,24 +14,25 @@ class Steam:
 
     def __init__(self):
         self.failed = False
+
+        # API endpoints for further usage.
         self.url = 'http://store.steampowered.com/appreviews/{}?json=1'
         self.all_games_url = 'http://api.steampowered.com/ISteamApps/GetAppList/v0002/'
-
         self.parameters = {'filter': 'all', 'pucharse_type': 'steam', 'num_per_page': 100, 'start_offset': 0}
-        self.games_directory = 'static/data/gameslist.data'
+
+        # Directories for the fetched data.
+        self.games_dir = 'static/data/game_list.data'
+        self.game_names_dir = 'static/data/game_names.json'
 
         # Initialize the games list with the file content.
-        with open(self.games_directory, 'rb') as file:
-            self.games = pickle.load(file)
-
-        with open('static/data/gamenames.data', 'rb') as file:
-            self.game_names = pickle.load(file)
+        self.games = pickle.load(open(self.games_dir, 'rb'))
+        self.game_names = json.load(open(self.game_names_dir, 'r'))
 
     def download_games(self):
         downloaded_games = requests.get(self.all_games_url).json()['applist']['apps']
 
-        with open(self.games_directory, 'wb') as file:
-            pickle.dump(downloaded_games, file)
+        pickle.dump(downloaded_games, open(self.games_dir, 'wb'))
+        json.dump([game['name'] for game in downloaded_games], open(self.game_names_dir, 'w'))
 
     def get_reviews(self, name, number=1):
         """
