@@ -60,9 +60,9 @@ function autocomplete(minimumCharacters) {
 
             // Hide and show the links container if there are matches.
             if (matches.length > 0) {
-                linksContainer.hide();
+                linksContainer.css('visibility', 'hidden')
             } else {
-                linksContainer.show();
+                linksContainer.css('visibility', 'visible')
             }
 
             $.each(matches, function (index, value) {
@@ -75,8 +75,7 @@ function autocomplete(minimumCharacters) {
                 // Add a click listener to the new element.
                 $(prediction).click(function () {
                     // Update the input text.
-                    let innerText = $(this)[0].innerText;
-                    searchInput.val(innerText);
+                    searchInput.val($(this)[0].innerText);
 
                     // Update the prediction list again.
                     searchInput.focus();
@@ -87,7 +86,7 @@ function autocomplete(minimumCharacters) {
         }
 
         if (searchInput.val() === "") {
-            linksContainer.show();
+            linksContainer.css('visibility', 'visible')
         }
     });
 }
