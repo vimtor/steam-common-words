@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block form %}
-    <form action="" id="search-bar-error" method="post">
+    <form action="" class="search-bar" id="search-bar-error" method="post">
         {{ form.hidden_tag() }}
-        {{ form.name(class_='search-input-error', placeholder='That game does not exist.', autocomplete='off') }}
+        {{ form.name(class_='search-input search-input-error', placeholder='That game does not exist.', autocomplete='off') }}
     </form>
 {% endblock %}
