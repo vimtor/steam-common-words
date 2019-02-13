@@ -26,7 +26,7 @@ function autocomplete(minimumCharacters) {
     // Find required elements.
     let searchInput = $(".search-input");
     let searchBar = $(".search-bar");
-    let formContainer = $("#form-container");
+    let predictions = $("#predictions");
     let linksContainer = $("#links");
 
     // Populate the names array with the contents of the JSON.
@@ -58,7 +58,7 @@ function autocomplete(minimumCharacters) {
                     searchBar.submit();
                 });
 
-                formContainer.append(prediction);
+                predictions.append(prediction);
             });
         }
 

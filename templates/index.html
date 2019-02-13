@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Steam Common Words</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
@@ -14,7 +15,10 @@
 <header id="main-header">
     <div id="header-container">
         <h1 id="main-h1">Steam. <span>Common Words</span></h1>
-        <div id="form-container">{% block form %} {% endblock %}</div>
+        <div id="form-container">
+            {% block form %} {% endblock %}
+            <div id="predictions"></div>
+        </div>
         <div id="links">
             <a class="link" target="_blank" href="https://github.com/VictorNavarroGonzalez/SteamCommonWords">GitHub</a>
             -
