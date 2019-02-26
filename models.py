@@ -3,6 +3,7 @@ import pickle
 import re
 import requests
 import random
+
 from collections import Counter
 
 from flask_wtf import FlaskForm
@@ -11,8 +12,14 @@ from wtforms.validators import DataRequired
 
 
 class Steam:
+    """
+    Main class that will make all the requests to the Steam API
+    and parse its responses into meaningful information (Words).
+
+    """
 
     def __init__(self):
+        """ Initializes all the parameters and loads the files into variables. """
         self.failed = False
 
         # API endpoints for further usage.
@@ -29,6 +36,7 @@ class Steam:
         self.game_names = json.load(open(self.game_names_dir, 'r'))
 
     def download_games(self):
+        """ Downloads all the steam games data and dumps it to files. """
         downloaded_games = requests.get(self.all_games_url).json()['applist']['apps']
 
         pickle.dump(downloaded_games, open(self.games_dir, 'wb'))
@@ -81,10 +89,9 @@ class Steam:
         Returns the most common words found.
 
         Parameters
-            reviews (str): All the concatenated reviews in one single string.
+            name (str): Name of the game to get reviews from.
             number (int):  How many words the function should return.
             ranges (int): How many different types of popularity a word could be.
-
 
         Returns
             list(Word): List of Word objects which have the text and the popularity as class attributes.
@@ -123,6 +130,16 @@ class Steam:
         return common_words
 
     def check_game(self, name):
+        """
+        Checks if the inputted game exists.
+
+        Parameters
+            name(str): The name to find.
+
+        Returns
+            The name of the found game or None if it was not found.
+
+        """
         for game in self.game_names:
             if name.lower() == game.lower():
                 return game
