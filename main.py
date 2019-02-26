@@ -1,10 +1,12 @@
 from flask import Flask, render_template, redirect, url_for, request
 from models import Steam, SearchForm
 
+from settings import secret_key
+
 app = Flask(__name__)
 steam = Steam()
 
-app.config['SECRET_KEY'] = 'Albaricoque'
+app.config['SECRET_KEY'] = secret_key
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -35,6 +37,7 @@ def words(name):
         if name is None:
             return redirect(url_for('index'))
 
+    # The game reviews can be private depending of the game.
     try:
         return render_template('words.html', name=name, words=steam.get_words(name, number=18, ranges=3))
     except ValueError:
